@@ -10,7 +10,7 @@ streamlit.text(fruityvice_response.json())
 # normalizes the json into a dataframe
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # displays the dataframe on the webpage
-#streamlit.dataframe(fruityvice_normalized)
+streamlit.dataframe(fruityvice_normalized)
 
 
 
