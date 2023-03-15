@@ -8,7 +8,9 @@ my_cur = my_cnx.cursor()
 my_cur.execute("SELECT * FROM FRUIT_LOAD_LIST")
 my_data_row = my_cur.fetchone()
 streamlit.text("Hello from Snowflake:")
-streamlit.text(my_data_row)
+streamlit.header(my_data_row)
+
+
 
 
 
