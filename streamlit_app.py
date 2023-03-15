@@ -3,13 +3,19 @@ import pandas
 import requests
 import snowflake.connector
 
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("SELECT * FROM FRUIT_LOAD_LIST")
-my_data_row = my_cur.fetchall()
-streamlit.header("Fruit List")
-streamlit.dataframe(my_data_row)
 
+streamlit.header("Fruit load list contains")
+#snowflake functions
+def get_fruit_load_list():
+        with my_cnx.cursor() as my_cur:
+             my_cur.execute("SELECT * FROM FRUIT_LOAD_LIST")
+             return my_cur.fetchall()
+
+#display button
+if streamlit.button('get load list'):
+    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    my_data_row = get_fruit_load_list()
+    streamlit.dataframe(my_data_row)
 
 new_fruit = streamlit.text_input('which fruit would you like to add')
 streamlit.write('Thanks for adding ', new_fruit)
