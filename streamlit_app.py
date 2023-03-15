@@ -50,18 +50,22 @@ streamlit.dataframe(fruits_to_show)
 
 
 # streamlit api call section
-streamlit.header("Fruityvice Fruit Advice!")
 
+def get_fruityvice_data(this_fruit_choice):
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+this_fruit_choice)
+    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    return fruityvice_normalized
+
+#display results  
+streamlit.header("Fruityvice Fruit Advice!")  
 try:
     fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
     if not fruit_choice:
         streamlit.error("please select a fruit for info")
     else:
-        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_choice)
-    # normalizes the json into a dataframe
-        fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+       back_from_function = get_fruityvice_data(fruit_choice)
     # displays the dataframe on the webpage
-        streamlit.dataframe(fruityvice_normalized)
+       streamlit.dataframe(fruityvice_normalized)
      
 except URLError as e:
     streamlit.error()
