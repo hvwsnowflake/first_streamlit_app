@@ -12,8 +12,9 @@ streamlit.dataframe(my_data_row)
 
 
 new_fruit = streamlit.text_input('which fruit would you like to add')
-streamlit.write('The user entered ', new_fruit)
+streamlit.write('Thanks for adding ', new_fruit)
 
+my_cur.execute("INSERT INTO FRUIT_LOAD_LIST(FRUITNAME) VALUES (new_fruit)")
 
 
 streamlit.title('My parents Healthy Diner')
